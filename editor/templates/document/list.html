@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Documents list</h1>
+
+<table class="table">
+	<tr>
+		<th id="c1">id</th>
+		<th id="c2">Document title</th>
+		<th id="c3">Last modified</th>
+		<th id="c4"></th>
+	</tr>
+	{% for doc in documents %}
+		<tr>
+			<td headers="c1">{{ doc.id }}</td>
+			<td headers="c2"><a href="{{url_for('document_edit', id=doc.id)}}">{{ doc.name }}</a></td>
+			<td headers="c3">{{ doc.save_date.strftime("%a, %d %b %Y %H:%M:%S") }}</td>
+			<td headers="c4"><a href="{{ url_for('document_delete', id=doc.id) }}">
+			<span class="glyphicon glyphicon-trash"></span>
+			</a></td>
+		</tr>
+	{% endfor %}
+
+</table>
+want more? <a href="/document/edit/new"> create a new one</a>.
+
+{% endblock %}

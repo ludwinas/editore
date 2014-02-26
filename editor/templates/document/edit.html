@@ -1,0 +1,45 @@
+{% from "_formhelpers.html" import render_field %}
+{% extends "base.html" %}
+
+{% block content %}
+
+<script src="/static/js/epiceditor.min.js"></script>
+<script type="text/javascript">
+
+	var opts = {
+		container: 'epiceditor',
+		textarea: 'editor-area',
+		basePath: '/static/css',
+		file: {
+			name: 'epiceditor',
+			defaultContent: '',
+			autoSave: 100
+		},
+		theme: {
+			base: '/epiceditor-themes/base/epiceditor.css',
+			preview: '/epiceditor-themes/preview/preview-dark.css',
+			editor: '/epiceditor-themes/editor/epic-dark.css'
+		},
+		focusOnLoad: true,
+		autogrow: true
+	}
+</script>
+
+	<form action="{{ url_for('document_store') }}" method="POST" name="document_form">
+		{{document_form.hidden_tag()}}
+		<input type="hidden" name="document_id" value="{{document.id if document.id else ''}}">
+		<dl>
+			<dt>
+				{{document_form.name(class="document-title")}}
+			</dt>
+			<dt>
+				{{document_form.value(class="document-content", id="editor-area")}}
+				<div id="epiceditor"></div>
+			</dt>
+		</dl>
+		<p><input type="submit" value="Save"> <input type="button" value="Abort mission!" onclick="window.location='/'"></p>
+	</form>
+<script type="text/javascript">
+	var editor = new EpicEditor(opts).load();
+</script>
+{% endblock %}

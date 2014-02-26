@@ -1,0 +1,11 @@
+input.document-title {
+	background-color:transparent;
+	border:0;
+	font-size:63px;
+	outline: none;
+	text-overflow: ellipsis;
+}
+
+textarea.document-content {
+	display:none;
+}
